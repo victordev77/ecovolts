@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Link } from "react-router-dom";
 import { Alert, Button, Card, EmptyState, MetricCard } from "../components/ui";
 import { ECOVOLTS_CONFIG } from "../config/ecovolts.config";
 import { useAppStore } from "../store/useAppStore";
@@ -108,16 +109,16 @@ export function Care() {
             <Button type="button" variant="secondary">
               Ver possíveis causas
             </Button>
-            <a className="button button--primary button--md" href="/meu-ecovolts/suporte">
+            <Link className="button button--primary button--md" to="/meu-ecovolts/suporte">
               Solicitar assistência
-            </a>
+            </Link>
           </div>
         </Card>
       ) : null}
 
       <Card tone="quiet">
         <div className="grid grid--3">
-          <MetricCard label="Saude" value="Normal" />
+          <MetricCard label="Saúde" value="Normal" />
           <MetricCard label="Plano" value={result.kit.name.replace("EcoVolts ", "")} />
           <MetricCard label="CO2 evitado" value={`${Math.round(current.actual * ECOVOLTS_CONFIG.care.co2KgPerKwh)} kg`} />
         </div>

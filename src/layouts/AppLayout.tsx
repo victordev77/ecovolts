@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import ecovoltsSymbol from "../assets/ecovolts-symbol.png";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 export function AppLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,6 +40,25 @@ export function AppLayout() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMobileMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !drawerRef.current) return;
+
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
@@ -62,21 +82,25 @@ export function AppLayout() {
             <span>EcoVolts</span>
           </NavLink>
 
-          <button
-            type="button"
-            className="topbar__toggle"
-            ref={toggleRef}
-            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-controls="mobile-navigation"
-            aria-expanded={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-          >
-            <span className="topbar__toggle-icon" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
-          </button>
+          <div className="topbar__actions">
+            <ThemeToggle className="theme-toggle--desktop" />
+
+            <button
+              type="button"
+              className="topbar__toggle"
+              ref={toggleRef}
+              aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-controls="mobile-navigation"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+            >
+              <span className="topbar__toggle-icon" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            </button>
+          </div>
 
           <nav className="nav" aria-label="Principal">
             <NavLink to="/" end>
@@ -91,9 +115,13 @@ export function AppLayout() {
             <NavLink to="/meu-ecovolts">
               Meu EcoVolts
             </NavLink>
+            <NavLink to="/apoie">
+              Apoie
+            </NavLink>
             <NavLink to="/demo">
               Demo
             </NavLink>
+            <ThemeToggle className="theme-toggle--nav" />
           </nav>
         </div>
 
@@ -143,11 +171,20 @@ export function AppLayout() {
             <NavLink to="/meu-ecovolts" onClick={closeMenu}>
               Meu EcoVolts
             </NavLink>
+            <NavLink to="/apoie" onClick={closeMenu}>
+              Apoie
+            </NavLink>
+            <NavLink to="/demo" onClick={closeMenu}>
+              Demo
+            </NavLink>
           </nav>
 
-          <NavLink className="button button--primary button--md mobile-drawer__cta" to="/diagnostico" onClick={closeMenu}>
-            Descobrir meu plano
-          </NavLink>
+          <div className="mobile-drawer__footer">
+            <ThemeToggle className="theme-toggle--mobile" />
+            <NavLink className="button button--primary button--md mobile-drawer__cta" to="/diagnostico" onClick={closeMenu}>
+              Descobrir meu plano
+            </NavLink>
+          </div>
         </aside>
 
         <div className="notice-bar">Protótipo demonstrativo. Nenhuma compra ou contratação real é realizada.</div>

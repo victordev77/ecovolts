@@ -82,7 +82,7 @@ export function Diagnostic() {
         </Card>
 
         <Card>
-          <h2>Onde fica sua residencia?</h2>
+          <h2>Onde fica sua residência?</h2>
           <div className="grid grid--3">
             <Select label="Estado" {...register("state")}>
               {Object.keys(ECOVOLTS_CONFIG.tariffByState).map((state) => (
@@ -93,7 +93,7 @@ export function Diagnostic() {
             <Select label="Imóvel" {...register("homeType")}>
               <option>Casa</option>
               <option>Apartamento</option>
-              <option>Comercio pequeno</option>
+              <option>Comércio pequeno</option>
             </Select>
           </div>
         </Card>

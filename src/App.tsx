@@ -12,6 +12,7 @@ const Diagnostic = lazy(() => import("./pages/Diagnostic").then((module) => ({ d
 const Result = lazy(() => import("./pages/Result").then((module) => ({ default: module.Result })));
 const Demo = lazy(() => import("./pages/Demo").then((module) => ({ default: module.Demo })));
 const Auth = lazy(() => import("./pages/Auth").then((module) => ({ default: module.Auth })));
+const SupportProject = lazy(() => import("./pages/SupportProject").then((module) => ({ default: module.SupportProject })));
 const Overview = lazy(() => import("./pages/Overview").then((module) => ({ default: module.Overview })));
 const MySolution = lazy(() => import("./pages/MySolution").then((module) => ({ default: module.MySolution })));
 const Acquisition = lazy(() => import("./pages/Acquisition").then((module) => ({ default: module.Acquisition })));
@@ -32,6 +33,7 @@ export function App() {
             <Route path="resultado" element={<Result />} />
             <Route path="demo" element={<Demo />} />
             <Route path="auth" element={<Auth />} />
+            <Route path="apoie" element={<SupportProject />} />
             <Route path="meu-ecovolts" element={<MyEcovoltsLayout />}>
               <Route index element={<Overview />} />
               <Route path="minha-solucao" element={<MySolution />} />

@@ -15,7 +15,7 @@ export function Demo() {
       <div className="section-header">
         <span className="eyebrow">Demo</span>
         <h1>Jornada pronta para apresentar.</h1>
-        <p>Use os atalhos abaixo para navegar pela experiencia demonstrativa.</p>
+        <p>Use os atalhos abaixo para navegar pela experiência demonstrativa.</p>
       </div>
       <div className="grid grid--3">
         <Card>
