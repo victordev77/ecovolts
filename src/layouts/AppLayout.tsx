@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import ecovoltsSymbol from "../assets/ecovolts-symbol.png";
+import ecovoltsSymbol from "../assets/ecovolts-symbol-nav.png";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 export function AppLayout() {
@@ -32,10 +32,17 @@ export function AppLayout() {
   useEffect(() => {
     if (!mobileMenuOpen) return;
 
+    const scrollY = window.scrollY;
     const previousOverflow = document.body.style.overflow;
+    const previousPosition = document.body.style.position;
+    const previousTop = document.body.style.top;
+    const previousWidth = document.body.style.width;
     const toggleButton = toggleRef.current;
     document.body.style.overflow = "hidden";
-    drawerRef.current?.focus();
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    drawerRef.current?.focus({ preventScroll: true });
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -66,8 +73,12 @@ export function AppLayout() {
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.style.position = previousPosition;
+      document.body.style.top = previousTop;
+      document.body.style.width = previousWidth;
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
       window.removeEventListener("keydown", handleKeyDown);
-      toggleButton?.focus();
+      toggleButton?.focus({ preventScroll: true });
     };
   }, [mobileMenuOpen]);
 
@@ -77,7 +88,7 @@ export function AppLayout() {
         <div className="topbar__inner">
           <NavLink className="brand" to="/" onClick={closeMenu}>
             <span className="brand__mark" aria-hidden="true">
-              <img src={ecovoltsSymbol} alt="" />
+              <img src={ecovoltsSymbol} alt="" width="240" height="160" decoding="async" />
             </span>
             <span>EcoVolts</span>
           </NavLink>
@@ -140,7 +151,7 @@ export function AppLayout() {
           <div className="mobile-drawer__header">
             <NavLink className="brand" to="/" onClick={closeMenu}>
               <span className="brand__mark" aria-hidden="true">
-                <img src={ecovoltsSymbol} alt="" />
+                <img src={ecovoltsSymbol} alt="" width="240" height="160" decoding="async" />
               </span>
               <span>EcoVolts</span>
             </NavLink>

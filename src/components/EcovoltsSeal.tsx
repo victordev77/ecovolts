@@ -1,4 +1,4 @@
-import ecovoltsSealImg from "../assets/ecovolts-seal.png";
+import ecovoltsSealImg from "../assets/ecovolts-seal-display.png";
 
 export function EcovoltsSeal({ size = 240 }: { size?: number }) {
   return (
@@ -12,6 +12,10 @@ export function EcovoltsSeal({ size = 240 }: { size?: number }) {
         src={ecovoltsSealImg}
         alt="Selo EcoVolts — Parceiro de Impacto"
         className="ecovolts-seal__img"
+        width="440"
+        height="440"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );
